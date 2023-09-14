@@ -6,5 +6,5 @@
     height: min-content;     /* Adjusts the height of the container based on its content */
     border-radius: 5px;      /* Rounds the corners of the container with a 5px radius */
     color: black;            /* Sets the text color to black */
-    background-color: lightgrey; /* Sets the background color to light blue */
+    background-color: rgb(216, 213, 213); /* Sets the background color to light blue */
   }
