@@ -1,11 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  registerUser,
-  selectUser,
-  syncWithLocalStorage,
-} from "../../features/register/registerSlice";
+import { registerUser,selectUser,syncWithLocalStorage,} from "../../features/register/registerSlice";
 import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -14,7 +10,7 @@ const Register = () => {
     firstname: "",
     email: "",
     password: "",
-    Accno: "",
+    Accno: "", // Remove the Accno field from here
     contactnumber: "",
   });
 
@@ -30,10 +26,27 @@ const Register = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const generateAccno = () => {
+  
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerUser(formData));
-    alert("Registered Successfully");
+    
+    // Generate a random account number
+    const randomAccno = generateAccno();
+
+    // Include the generated account number in the form data
+    const updatedFormData = {
+      ...formData,
+      Accno: randomAccno,
+    };
+
+    dispatch(registerUser(updatedFormData));
+    
+    // Assuming registerUser dispatching indicates success
+    alert("Registered Successfully with Account Number: " + randomAccno);
     navigate("/login");
   };
 
@@ -49,7 +62,7 @@ const Register = () => {
       <div className="register">
         <h2 className="text-center"> Self Register Form</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
+        <div className="mb-3">
             <label htmlFor="Firstname" className="form-label">
               First Name
               <span className="required-mark">*</span>
@@ -85,22 +98,8 @@ const Register = () => {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="Password" className="form-label">
-              Account Number
-              <span className="required-mark">*</span>
-            </label>
-            <input
-              type={"text"}
-              className="form-control"
-              required
-              placeholder="Enter your Acc Number"
-              name="Accno"
-              onChange={handleChange}
-              value={formData.Accno}
-            />
-          </div>
-
+          
+         
           <div className="mb-3">
             <label htmlFor="Email" className="form-label">
               Email
@@ -135,6 +134,7 @@ const Register = () => {
               value={formData.password}
             />
           </div>
+          
           <button type="submit" className="btn btn-primary">
             Register
           </button>
