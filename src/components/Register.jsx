@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { registerUser, selectUser } from "../features/register/registerSlice";
+import { registerUser, selectUser, syncWithLocalStorage } from "../features/register/registerSlice";
 
 export default function Register() {
-  //   const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
-  const userArray = useSelector(selectUser);
+  let userArray = useSelector(selectUser);
+  
+
   const addNewUser = () => {
+
     dispatch(registerUser(newUser));
   };
 
   //   dummy user data
   const newUser = {
-    name: "Abdul",
+    name: "Eswar",
     age: 21,
     location: "India",
     accountNumber: 7387487437643,
@@ -21,15 +23,18 @@ export default function Register() {
 
   useEffect(() => {
     console.log(userArray);
-  }, [userArray]);
+    if(localStorage.getItem("users")) {
+      dispatch(syncWithLocalStorage(JSON.parse(localStorage.getItem("users"))))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
       <div className="form_conatiner">
         <h1>Register</h1>
-        {/* <p>{userArray[0]?.name}</p> */}
         {userArray.map((eachuser) => {
-          return <h1>{eachuser?.name}</h1>;
+          return <h1 key={userArray.indexOf(eachuser)}>{eachuser?.name}</h1>;
         })}
         <button onClick={addNewUser}>Add User</button>
       </div>

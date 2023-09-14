@@ -11,12 +11,16 @@ export const registerSlice = createSlice({
     // anonymous function
     registerUser: (state, action) => {
       state.users.push(action.payload);
+      localStorage.setItem("users", JSON.stringify(state.users));
+    },
+    syncWithLocalStorage: (state, action) => {
+      state.users = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { registerUser } = registerSlice.actions;
+export const { registerUser, syncWithLocalStorage } = registerSlice.actions;
 
 export const selectUser = (state) => state.register.users;
 
