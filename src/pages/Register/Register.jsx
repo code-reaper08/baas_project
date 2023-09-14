@@ -10,7 +10,7 @@ const Register = () => {
     firstname: "",
     email: "",
     password: "",
-    Accno: "", // Remove the Accno field from here
+    Accno: "", 
     contactnumber: "",
   });
 
@@ -23,29 +23,27 @@ const Register = () => {
     if (localStorage.getItem("users")) {
       dispatch(syncWithLocalStorage(JSON.parse(localStorage.getItem("users"))));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   const generateAccno = () => {
   
-    return Math.floor(100000 + Math.random() * 900000).toString();
+    return Math.floor(1000000000 + Math.random() * 9000000000).toString();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Generate a random account number
+
     const randomAccno = generateAccno();
 
-    // Include the generated account number in the form data
     const updatedFormData = {
       ...formData,
       Accno: randomAccno,
     };
 
     dispatch(registerUser(updatedFormData));
-    
-    // Assuming registerUser dispatching indicates success
+
     alert("Registered Successfully with Account Number: " + randomAccno);
     navigate("/login");
   };
