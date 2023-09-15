@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser, syncWithLocalStorage } from "../../features/register/registerSlice";
+import {
+  selectUser,
+  syncWithLocalStorage,
+} from "../../features/register/registerSlice";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from 'react-router-dom';
-import './Dashboard.css';
+import { Link } from "react-router-dom";
+import "./Dashboard.css";
 
 export default function Dashboard() {
   const userArray = useSelector(selectUser);
@@ -15,6 +18,7 @@ export default function Dashboard() {
     if (localStorage.getItem("users")) {
       dispatch(syncWithLocalStorage(JSON.parse(localStorage.getItem("users"))));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLogout = () => {
@@ -46,7 +50,7 @@ export default function Dashboard() {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
+              <li className="nav-item">
                 <Link to="/insuranceServices" className="nav-link">
                   Insurance
                 </Link>
@@ -88,4 +92,4 @@ export default function Dashboard() {
       </div>
     </div>
   );
-};
+}

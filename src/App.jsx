@@ -9,6 +9,8 @@ import InsuranceService from "./pages/BankingServices/InsuranceService";
 import ExchangeService from "./pages/BankingServices/ExchangeService";
 import InvestementService from "./pages/BankingServices/InvestementService";
 import LoanService from "./pages/BankingServices/LoanService";
+import { PrivateRoute } from "./components/PrivateRoute";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -21,12 +23,29 @@ function App() {
           <Route exact path={"/"} element={<Home />} />
           <Route exact path="/Register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
-          <Route exact path="/dashboard" element={<Dashboard />} />
-          <Route exact path="/loanServices" element={<LoanService/>}/>
-          <Route exact path="/insuranceServices" element={<InsuranceService/>}/>
-          <Route exact path="/exchangeServices" element={<ExchangeService/>}/>
-          <Route exact path="/bankingServices" element={<BankingService/>}/>
-          <Route exact path="/investementServices" element={<InvestementService/>}/>
+          <Route
+            exact
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route exact path="/loanServices" element={<LoanService />} />
+          <Route
+            exact
+            path="/insuranceServices"
+            element={<InsuranceService />}
+          />
+          <Route exact path="/exchangeServices" element={<ExchangeService />} />
+          <Route exact path="/bankingServices" element={<BankingService />} />
+          <Route
+            exact
+            path="/investementServices"
+            element={<InvestementService />}
+          />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </div>

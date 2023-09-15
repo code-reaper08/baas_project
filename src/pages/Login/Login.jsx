@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/register/registerSlice";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectUser,
+  syncWithLocalStorage,
+} from "../../features/register/registerSlice";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +14,7 @@ const Login = () => {
 
   const userArray = useSelector(selectUser);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const accountNumbers = userArray.map((user) => user.Accno);
 
@@ -40,6 +44,14 @@ const Login = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(() => {
+    console.log(userArray);
+    if (localStorage.getItem("users")) {
+      dispatch(syncWithLocalStorage(JSON.parse(localStorage.getItem("users"))));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="d-flex align-items-center justify-content-center">

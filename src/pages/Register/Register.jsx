@@ -9,7 +9,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     firstname: "",
     email: "",
-    password: "",
+    // password: "",
     Accno: "", 
     contactnumber: "",
   });
@@ -24,6 +24,7 @@ const Register = () => {
       dispatch(syncWithLocalStorage(JSON.parse(localStorage.getItem("users"))));
     }
     
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const generateAccno = () => {
@@ -62,14 +63,14 @@ const Register = () => {
         <form onSubmit={handleSubmit}>
         <div className="mb-3">
             <label htmlFor="Firstname" className="form-label">
-              First Name
+              Name
               <span className="required-mark">*</span>
             </label>
             <input
               type={"text"}
               className="form-control"
               required
-              placeholder="Enter your First Name"
+              placeholder="Enter your Name"
               name="firstname"
               onChange={handleChange}
               value={formData.name}
@@ -117,7 +118,7 @@ const Register = () => {
               value={formData.email}
             />
           </div>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label htmlFor="Password" className="form-label">
               Password
               <span className="required-mark">*</span>
@@ -131,7 +132,7 @@ const Register = () => {
               onChange={handleChange}
               value={formData.password}
             />
-          </div>
+          </div> */}
           
           <button type="submit" className="btn btn-primary">
             Register
